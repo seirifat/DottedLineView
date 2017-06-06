@@ -16,7 +16,7 @@ class ViewController: UIViewController {
         
         let dottedLineView = DottedLineView(frame: CGRect(x: 0, y: 100, width: view.frame.width, height: 10))
         dottedLineView.lineWidth = 8
-        dottedLineView.lineColor = UIColor.blueColor()
+        dottedLineView.lineColor = UIColor.blue
         
         view.addSubview(dottedLineView)
     }

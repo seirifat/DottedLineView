@@ -9,19 +9,19 @@
 import UIKit
 
 @IBDesignable
-public class DottedLineView: UIView {
+open class DottedLineView: UIView {
 
     @IBInspectable
-    public var lineColor: UIColor = UIColor.blackColor()
+    open var lineColor: UIColor = UIColor.black
     
     @IBInspectable
-    public var lineWidth: CGFloat = CGFloat(4)
+    open var lineWidth: CGFloat = CGFloat(4)
     
     @IBInspectable
-    public var round: Bool = false
+    open var round: Bool = false
     
     @IBInspectable
-    public var horizontal: Bool = true
+    open var horizontal: Bool = true
     
     override public init(frame: CGRect) {
         super.init(frame: frame)
@@ -33,11 +33,11 @@ public class DottedLineView: UIView {
         initBackgroundColor()
     }
     
-    override public func prepareForInterfaceBuilder() {
+    override open func prepareForInterfaceBuilder() {
         initBackgroundColor()
     }
 
-    override public func drawRect(rect: CGRect) {
+    override open func draw(_ rect: CGRect) {
 
         let path = UIBezierPath()
         path.lineWidth = lineWidth
@@ -55,54 +55,54 @@ public class DottedLineView: UIView {
 
     func initBackgroundColor() {
         if backgroundColor == nil {
-            backgroundColor = UIColor.clearColor()
+            backgroundColor = UIColor.clear
         }
     }
     
-    private func configurePath(path: UIBezierPath, rect: CGRect) {
+    fileprivate func configurePath(_ path: UIBezierPath, rect: CGRect) {
         if horizontal {
             let center = rect.height * 0.5
-            let drawWidth = rect.size.width - (rect.size.width % (lineWidth * 2)) + lineWidth
+            let drawWidth = rect.size.width - (rect.size.width.truncatingRemainder(dividingBy: (lineWidth * 2))) + lineWidth
             let startPositionX = (rect.size.width - drawWidth) * 0.5 + lineWidth
             
-            path.moveToPoint(CGPoint(x: startPositionX, y: center))
-            path.addLineToPoint(CGPoint(x: drawWidth, y: center))
+            path.move(to: CGPoint(x: startPositionX, y: center))
+            path.addLine(to: CGPoint(x: drawWidth, y: center))
             
         } else {
             let center = rect.width * 0.5
-            let drawHeight = rect.size.height - (rect.size.height % (lineWidth * 2)) + lineWidth
+            let drawHeight = rect.size.height - (rect.size.height.truncatingRemainder(dividingBy: (lineWidth * 2))) + lineWidth
             let startPositionY = (rect.size.height - drawHeight) * 0.5 + lineWidth
             
-            path.moveToPoint(CGPoint(x: center, y: startPositionY))
-            path.addLineToPoint(CGPoint(x: center, y: drawHeight))
+            path.move(to: CGPoint(x: center, y: startPositionY))
+            path.addLine(to: CGPoint(x: center, y: drawHeight))
         }
         
         let dashes: [CGFloat] = [lineWidth, lineWidth]
         path.setLineDash(dashes, count: dashes.count, phase: 0)
-        path.lineCapStyle = CGLineCap.Butt
+        path.lineCapStyle = CGLineCap.butt
     }
     
-    private func configureRoundPath(path: UIBezierPath, rect: CGRect) {
+    fileprivate func configureRoundPath(_ path: UIBezierPath, rect: CGRect) {
         if horizontal {
             let center = rect.height * 0.5
-            let drawWidth = rect.size.width - (rect.size.width % (lineWidth * 2))
+            let drawWidth = rect.size.width - (rect.size.width.truncatingRemainder(dividingBy: (lineWidth * 2)))
             let startPositionX = (rect.size.width - drawWidth) * 0.5 + lineWidth
             
-            path.moveToPoint(CGPoint(x: startPositionX, y: center))
-            path.addLineToPoint(CGPoint(x: drawWidth, y: center))
+            path.move(to: CGPoint(x: startPositionX, y: center))
+            path.addLine(to: CGPoint(x: drawWidth, y: center))
             
         } else {
             let center = rect.width * 0.5
-            let drawHeight = rect.size.height - (rect.size.height % (lineWidth * 2))
+            let drawHeight = rect.size.height - (rect.size.height.truncatingRemainder(dividingBy: (lineWidth * 2)))
             let startPositionY = (rect.size.height - drawHeight) * 0.5 + lineWidth
             
-            path.moveToPoint(CGPoint(x: center, y: startPositionY))
-            path.addLineToPoint(CGPoint(x: center, y: drawHeight))
+            path.move(to: CGPoint(x: center, y: startPositionY))
+            path.addLine(to: CGPoint(x: center, y: drawHeight))
         }
 
         let dashes: [CGFloat] = [0, lineWidth * 2]
         path.setLineDash(dashes, count: dashes.count, phase: 0)
-        path.lineCapStyle = CGLineCap.Round
+        path.lineCapStyle = CGLineCap.round
     }
     
 }
